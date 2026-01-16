@@ -1,0 +1,23 @@
+# Audio files - ensure proper MIME types
+/assets/audio/*.mp3
+  Content-Type: audio/mpeg
+  Cache-Control: public, max-age=31536000
+
+/assets/audio/*.wav
+  Content-Type: audio/wav
+  Cache-Control: public, max-age=31536000
+
+/assets/audio/*.ogg
+  Content-Type: audio/ogg
+  Cache-Control: public, max-age=31536000
+
+# Images - cache control
+/assets/images/*
+  Cache-Control: public, max-age=31536000
+
+# CSS and JS - cache control
+/assets/*.css
+  Cache-Control: public, max-age=31536000
+
+/assets/*.js
+  Cache-Control: public, max-age=31536000

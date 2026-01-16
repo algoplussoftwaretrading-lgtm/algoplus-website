@@ -2,15 +2,35 @@ import React, { useState, useEffect, useRef } from "react";
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(new Audio("/assets/audio/ambient.mp3"));
+  const [isLoaded, setIsLoaded] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
-    const audio = audioRef.current;
-    audio.loop = true;
-    audio.volume = 0.5;
+    // Create audio element only in browser environment
+    if (typeof window !== 'undefined') {
+      const audio = new Audio();
+      audio.src = "/assets/audio/ambient.mp3";
+      audio.loop = true;
+      audio.volume = 0.5;
+      audio.preload = "auto";
+
+      // Listen for when audio is ready to play
+      audio.addEventListener('canplaythrough', () => {
+        setIsLoaded(true);
+      });
+
+      audio.addEventListener('error', (e) => {
+        console.error("Audio loading error:", e);
+      });
+
+      audioRef.current = audio;
+    }
 
     // Function to try playing audio
     const attemptPlay = () => {
+      const audio = audioRef.current;
+      if (!audio || !isLoaded) return;
+
       audio.play()
         .then(() => {
           // Success: Music is playing
@@ -19,7 +39,7 @@ const MusicPlayer = () => {
           removeInteractionListeners();
         })
         .catch((error) => {
-          console.log("Autoplay prevented. Waiting for user interaction...");
+          // Silently fail - autoplay blocked
         });
     };
 
@@ -28,22 +48,32 @@ const MusicPlayer = () => {
       document.removeEventListener("click", attemptPlay);
       document.removeEventListener("scroll", attemptPlay);
       document.removeEventListener("keydown", attemptPlay);
+      document.removeEventListener("touchstart", attemptPlay);
     };
 
-    // 1. Try to play immediately (Works in some browsers)
-    attemptPlay();
+    // Wait a bit for audio to load before attempting autoplay
+    const autoplayTimer = setTimeout(() => {
+      if (isLoaded) {
+        attemptPlay();
+      }
+    }, 500);
 
-    // 2. If blocked, wait for ANY interaction (Click, Scroll, or Key)
+    // If blocked, wait for ANY interaction (Click, Scroll, Key, or Touch)
     document.addEventListener("click", attemptPlay, { once: true });
     document.addEventListener("scroll", attemptPlay, { once: true });
     document.addEventListener("keydown", attemptPlay, { once: true });
+    document.addEventListener("touchstart", attemptPlay, { once: true });
 
     // Cleanup on component unmount
     return () => {
-      audio.pause();
+      clearTimeout(autoplayTimer);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
       removeInteractionListeners();
     };
-  }, []);
+  }, [isLoaded]);
 
   const toggleMusic = (e) => {
     // Stop the click from bubbling up (prevents triggering the listener again)
