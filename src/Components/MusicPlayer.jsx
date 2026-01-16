@@ -2,97 +2,100 @@ import React, { useState, useEffect, useRef } from "react";
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const audioRef = useRef(null);
+  const hasAttemptedAutoplay = useRef(false);
 
   useEffect(() => {
-    // Create audio element only in browser environment
-    if (typeof window !== 'undefined') {
-      const audio = new Audio();
-      audio.src = "/assets/audio/ambient.mp3";
-      audio.loop = true;
-      audio.volume = 0.5;
-      audio.preload = "auto";
+    // Create audio element
+    const audio = new Audio("/assets/audio/algoplus-background.mp3");
+    audio.loop = true;
+    audio.volume = 0.3;
+    audioRef.current = audio;
 
-      // Listen for when audio is ready to play
-      audio.addEventListener('canplaythrough', () => {
-        setIsLoaded(true);
+    // Log audio loading status
+    audio.addEventListener('loadeddata', () => {
+      console.log("Algo Plus background music loaded successfully");
+    });
+
+    audio.addEventListener('error', (e) => {
+      console.error("Failed to load Algo Plus background music:", {
+        error: e,
+        src: audio.src,
+        networkState: audio.networkState,
+        readyState: audio.readyState
       });
+    });
 
-      audio.addEventListener('error', (e) => {
-        console.error("Audio loading error:", e);
-      });
+    // Function to attempt playing
+    const tryPlay = () => {
+      if (!audioRef.current || hasAttemptedAutoplay.current) return;
 
-      audioRef.current = audio;
-    }
-
-    // Function to try playing audio
-    const attemptPlay = () => {
-      const audio = audioRef.current;
-      if (!audio || !isLoaded) return;
-
-      audio.play()
+      audioRef.current.play()
         .then(() => {
-          // Success: Music is playing
+          console.log("Algo Plus music started playing");
           setIsPlaying(true);
-          // Remove the "waiting" listeners so we don't try to play again
-          removeInteractionListeners();
+          hasAttemptedAutoplay.current = true;
         })
-        .catch((error) => {
-          // Silently fail - autoplay blocked
+        .catch(() => {
+          console.log("Autoplay blocked. Click the music button to play.");
         });
     };
 
-    // Helper to cleanup listeners
-    const removeInteractionListeners = () => {
-      document.removeEventListener("click", attemptPlay);
-      document.removeEventListener("scroll", attemptPlay);
-      document.removeEventListener("keydown", attemptPlay);
-      document.removeEventListener("touchstart", attemptPlay);
+    // Try to play after a short delay
+    const playTimer = setTimeout(tryPlay, 1000);
+
+    // Also try on first user interaction
+    const handleInteraction = () => {
+      tryPlay();
+      cleanup();
     };
 
-    // Wait a bit for audio to load before attempting autoplay
-    const autoplayTimer = setTimeout(() => {
-      if (isLoaded) {
-        attemptPlay();
-      }
-    }, 500);
+    const cleanup = () => {
+      document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("touchstart", handleInteraction);
+      document.removeEventListener("keydown", handleInteraction);
+    };
 
-    // If blocked, wait for ANY interaction (Click, Scroll, Key, or Touch)
-    document.addEventListener("click", attemptPlay, { once: true });
-    document.addEventListener("scroll", attemptPlay, { once: true });
-    document.addEventListener("keydown", attemptPlay, { once: true });
-    document.addEventListener("touchstart", attemptPlay, { once: true });
+    document.addEventListener("click", handleInteraction, { once: true });
+    document.addEventListener("touchstart", handleInteraction, { once: true });
+    document.addEventListener("keydown", handleInteraction, { once: true });
 
-    // Cleanup on component unmount
+    // Cleanup on unmount
     return () => {
-      clearTimeout(autoplayTimer);
+      clearTimeout(playTimer);
+      cleanup();
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-      removeInteractionListeners();
     };
-  }, [isLoaded]);
+  }, []);
 
-  const toggleMusic = (e) => {
-    // Stop the click from bubbling up (prevents triggering the listener again)
-    e.stopPropagation(); 
-    
+  const toggleMusic = () => {
     const audio = audioRef.current;
+    if (!audio) return;
+
     if (isPlaying) {
       audio.pause();
       setIsPlaying(false);
+      console.log("Algo Plus music paused");
     } else {
-      audio.play();
-      setIsPlaying(true);
+      audio.play()
+        .then(() => {
+          setIsPlaying(true);
+          console.log("Algo Plus music resumed");
+        })
+        .catch((err) => {
+          console.error("Failed to play music:", err);
+        });
     }
   };
 
   return (
     <button
       onClick={toggleMusic}
-      title={isPlaying ? "Mute Music" : "Play Music"}
+      title={isPlaying ? "Pause Music" : "Play Music"}
+      aria-label={isPlaying ? "Pause background music" : "Play background music"}
       style={{
         position: "fixed",
         bottom: "30px",
@@ -102,7 +105,7 @@ const MusicPlayer = () => {
         height: "50px",
         borderRadius: "50%",
         border: "2px solid rgba(255, 255, 255, 0.2)",
-        backgroundColor: isPlaying ? "#3b82f6" : "#222", // Blue = Playing, Dark = Muted
+        backgroundColor: isPlaying ? "#3b82f6" : "#222",
         color: "#fff",
         cursor: "pointer",
         boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
