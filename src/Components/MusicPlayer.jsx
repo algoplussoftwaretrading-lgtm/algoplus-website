@@ -7,18 +7,19 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     // Create audio element
-    const audio = new Audio("/assets/audio/algoplus-background.mp3");
+    const audio = new Audio("/assets/audio/ambient.mp3");
     audio.loop = true;
     audio.volume = 0.3;
+    audio.preload = 'auto';
     audioRef.current = audio;
 
     // Log audio loading status
     audio.addEventListener('loadeddata', () => {
-      console.log("Algo Plus background music loaded successfully");
+      console.log("Background music loaded successfully");
     });
 
     audio.addEventListener('error', (e) => {
-      console.error("Failed to load Algo Plus background music:", {
+      console.error("Failed to load background music:", {
         error: e,
         src: audio.src,
         networkState: audio.networkState,
@@ -26,50 +27,44 @@ const MusicPlayer = () => {
       });
     });
 
-    // Function to attempt playing
-    const tryPlay = () => {
-      if (!audioRef.current || hasAttemptedAutoplay.current) return;
+    audio.addEventListener('ended', () => {
+      setIsPlaying(false);
+    });
+
+    // Function to attempt playing (only on user interaction)
+    const handleUserInteraction = () => {
+      if (!audioRef.current || isPlaying) return;
 
       audioRef.current.play()
         .then(() => {
-          console.log("Algo Plus music started playing");
+          console.log("Background music started playing");
           setIsPlaying(true);
-          hasAttemptedAutoplay.current = true;
         })
-        .catch(() => {
-          console.log("Autoplay blocked. Click the music button to play.");
+        .catch((err) => {
+          console.error("Failed to play music:", err);
         });
     };
 
-    // Try to play after a short delay
-    const playTimer = setTimeout(tryPlay, 1000);
-
-    // Also try on first user interaction
-    const handleInteraction = () => {
-      tryPlay();
-      cleanup();
-    };
-
+    // Listen for user interactions to enable music
     const cleanup = () => {
-      document.removeEventListener("click", handleInteraction);
-      document.removeEventListener("touchstart", handleInteraction);
-      document.removeEventListener("keydown", handleInteraction);
+      document.removeEventListener("click", handleUserInteraction);
+      document.removeEventListener("touchstart", handleUserInteraction);
+      document.removeEventListener("keydown", handleUserInteraction);
     };
 
-    document.addEventListener("click", handleInteraction, { once: true });
-    document.addEventListener("touchstart", handleInteraction, { once: true });
-    document.addEventListener("keydown", handleInteraction, { once: true });
+    document.addEventListener("click", handleUserInteraction);
+    document.addEventListener("touchstart", handleUserInteraction);
+    document.addEventListener("keydown", handleUserInteraction);
 
     // Cleanup on unmount
     return () => {
-      clearTimeout(playTimer);
       cleanup();
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
     };
-  }, []);
+  }, [isPlaying]);
 
   const toggleMusic = () => {
     const audio = audioRef.current;
