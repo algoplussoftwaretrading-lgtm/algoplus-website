@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 
 // ✅ USE DOUBLE DOTS (../../) to go back 2 folders
-import { blogData } from "../../Data/SiteData"; 
+import { blogs } from "../../Data/BlogPostData";
 import PageHeader from "../../Components/Banner/PageHeader";
 import BlogSection from "../../Components/Blog/blog"; 
 
@@ -11,7 +11,7 @@ const BlogPage = () => {
 
   // --- 1. SINGLE POST VIEW (When you click Read More) ---
   if (id) {
-    const post = blogData.find((item) => item.id.toString() === id);
+    const post = blogs.find((item) => item.id.toString() === id);
 
     if (!post) return (
        <div className="text-center mt-5">
