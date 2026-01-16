@@ -1,0 +1,42 @@
+# Algo Plus - IT Solutions & Digital Marketing UAE
+# https://algopluss.com
+
+# Allow all search engines to crawl entire site
+User-agent: *
+Allow: /
+Crawl-delay: 1
+
+# Specific rules for Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+# Specific rules for Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block AI scrapers (optional - uncomment if needed)
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ChatGPT-User
+# Disallow: /
+
+# Disallow access to admin/private areas (if any exist)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /api/
+
+# Allow CSS, JS, and image files for proper rendering in search results
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/images/
+
+# Sitemaps
+Sitemap: https://algopluss.com/sitemap.xml
+Sitemap: https://algopluss.com/sitemap-pages.xml
+Sitemap: https://algopluss.com/sitemap-services.xml
+
+# Host directive for preferred domain
+Host: https://algopluss.com
