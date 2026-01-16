@@ -3,11 +3,11 @@ import { Link } from "react-router-dom"; // ✅ Import Link
 import AnimateOnScroll from "../Hooks/AnimateOnScroll";
 
 // ✅ Added 'id' to the props list
-const ServiceCard = ({ id, icon, title, content, speed = "" }) => {
+const ServiceCard = ({ id, icon, title, content, speed = "", className = "" }) => {
     return(
         <>
             <AnimateOnScroll animation="fadeInLeft" speed={speed}>
-                <div className="card card-service">
+                <div className={`card card-service ${className}`}>
                     <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
                         <div>
                             <div className="service-icon-wrapper">

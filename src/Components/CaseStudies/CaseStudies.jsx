@@ -27,7 +27,7 @@ const CaseStudiesSection = ({ noPadding }) => {
                                     <div className="d-flex flex-column h-100 justify-content-end gspace-2">
                                         <p>We don't just talk about results—we deliver them. Here are some of our most impactful case studies showcasing how our digital marketing strategies drive success.</p>
                                         <div className="link-wrapper">
-                                            <a href="./case_studies">More Case Studies</a>
+                                            <a href="/case_studies">More Case Studies</a>
                                             <i className="fa-solid fa-circle-arrow-right"></i>
                                         </div>
                                     </div>

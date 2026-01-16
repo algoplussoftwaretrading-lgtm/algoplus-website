@@ -1,8 +1,8 @@
 import React from "react";
 
-const TestimonialCard = ({ name, title, content, rating, image }) => {
+const TestimonialCard = ({ name, title, content, rating, image, className = "" }) => {
   return (
-    <div className="card card-testimonial">
+    <div className={`card card-testimonial ${className}`}>
         <div className="stars">
             {Array.from({ length: rating }).map((_, i) => (
             <i key={i} className="fa-solid fa-star"></i>

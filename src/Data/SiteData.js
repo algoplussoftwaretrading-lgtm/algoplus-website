@@ -9,7 +9,7 @@ export const serviceData = [
     slug: "ai-voice",
     icon: "fa-solid fa-microphone-lines",
     title: "AI Voice Agents",
-    description: "Automate customer support 24/7 with intelligent AI voice assistants supporting English and Arabic.",
+    description: "Revolutionize customer service with intelligent AI voice assistants supporting English and Arabic for 24/7 automation.",
     content: "Revolutionize customer service with Algo Plus's multilingual AI Voice Agents deployed across UAE. Our intelligent voice assistants handle inbound calls, appointment scheduling, customer inquiries, order tracking, and FAQ responses in both English and Arabic. Perfect for Dubai, Abu Dhabi, and GCC businesses requiring 24/7 customer engagement, reduced operational costs, and scalable support infrastructure that integrates seamlessly with your existing CRM systems."
   },
   {
@@ -17,7 +17,7 @@ export const serviceData = [
     slug: "digital-marketing",
     icon: "fa-solid fa-bullhorn",
     title: "Digital Marketing",
-    description: "Comprehensive digital marketing strategies optimized for UAE and GCC markets: SEO, PPC, Social Media, Content Marketing.",
+    description: "Drive growth with comprehensive digital strategies: SEO, PPC, social media, and content marketing for UAE/GCC markets.",
     content: "Algo Plus delivers 360-degree digital marketing solutions specifically designed for UAE businesses in Dubai, Abu Dhabi, Sharjah, and expanding across GCC. Our services include local SEO optimization for UAE search rankings, Google Ads and PPC campaigns targeting regional audiences, social media marketing on platforms popular in the Middle East, Instagram and Facebook advertising, LinkedIn B2B campaigns, email marketing automation, influencer collaborations, and Arabic content marketing. Drive measurable ROI with data-driven strategies tailored to Middle Eastern consumer behavior."
   },
   {
@@ -25,7 +25,7 @@ export const serviceData = [
     slug: "erp-crm",
     icon: "fa-solid fa-chart-line",
     title: "ERP & CRM Systems",
-    description: "Streamline operations with integrated business solutions for UAE enterprises, focusing on efficiency and growth.",
+    description: "Optimize operations with enterprise-grade ERP and CRM solutions for UAE businesses, enhancing efficiency and growth.",
     content: "Optimize your business processes with Algo Plus's enterprise-grade ERP and CRM solutions serving Dubai, Abu Dhabi, Sharjah, and across UAE. We implement Salesforce, SAP Business One, Microsoft Dynamics 365, Odoo, and custom-built platforms designed specifically for GCC market requirements. Our solutions include inventory management, financial reporting, customer relationship automation, sales pipeline optimization, and real-time analytics dashboards with Arabic language support."
   },
   {
@@ -33,7 +33,7 @@ export const serviceData = [
     slug: "microsoft",
     icon: "fa-brands fa-microsoft",
     title: "Microsoft Solutions",
-    description: "Empower your UAE business with enterprise-grade Microsoft technologies and Azure cloud infrastructure.",
+    description: "Leverage enterprise Microsoft technologies and Azure cloud for scalable, secure UAE business infrastructure.",
     content: "Algo Plus provides comprehensive Microsoft solutions across Dubai, Abu Dhabi, and UAE including Azure cloud migration, Microsoft 365 and Office 365 implementation, Dynamics 365 ERP deployment, Power Platform automation, and custom .NET development. Our certified Microsoft partners deliver secure, scalable solutions optimized for UAE businesses with local data center support and compliance with regional regulations."
   },
   {
@@ -41,7 +41,7 @@ export const serviceData = [
     slug: "ecommerce",
     icon: "fa-solid fa-cart-shopping",
     title: "E-commerce Growth",
-    description: "Scale your online store with conversion-optimized ecommerce solutions designed for UAE consumers and payment gateways.",
+    description: "Accelerate online sales with conversion-optimized ecommerce platforms and local payment gateway integrations.",
     content: "Algo Plus specializes in comprehensive ecommerce solutions for UAE online retailers operating in Dubai, Abu Dhabi, and across GCC. We build and optimize Shopify stores, WooCommerce platforms, Magento implementations, and custom ecommerce solutions integrated with local payment gateways (Telr, PayTabs, Network International). Our services include conversion rate optimization, mobile-first design, Arabic language support, local shipping integrations (Aramex, Fetchr), inventory management, abandoned cart recovery, and performance marketing campaigns specifically targeting UAE online shoppers. Drive sustainable ecommerce growth with proven strategies for the Middle Eastern market."
   },
   {
@@ -49,7 +49,7 @@ export const serviceData = [
     slug: "content-video",
     icon: "fa-solid fa-video",
     title: "AI Content & Video Production",
-    description: "Create engaging, culturally-relevant content at scale using cutting-edge AI tools and professional video production.",
+    description: "Produce engaging, culturally-relevant content at scale using AI tools and professional video production services.",
     content: "Transform your brand storytelling with Algo Plus's AI-powered content creation and professional video production services. We leverage the latest generative AI technologies to produce high-quality blog articles, social media content, product descriptions, and marketing copy optimized for UAE and GCC audiences. Our video production team creates compelling promotional videos, explainer animations, testimonial videos, and social media reels that resonate with Middle Eastern markets. Deliver consistent, conversion-focused content across all digital channels in both English and Arabic."
   }
 ];

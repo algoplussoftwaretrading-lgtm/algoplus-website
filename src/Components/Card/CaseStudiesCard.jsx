@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AnimateOnScroll from "../Hooks/AnimateOnScroll";
 
 const CaseStudyCard = ({ title, description, tags, className, size }) => {
@@ -11,20 +12,20 @@ const CaseStudyCard = ({ title, description, tags, className, size }) => {
                         <div className={`case-studies-component ${size} align-self-end justify-content-end align-items-end`}>
                             {tags.map((tag, index) => (
                                 <div key={index} className="cs-component">
-                                    <a href="#">{tag}</a>
+                                    <Link to="/case_studies">{tag}</Link>
                                 </div>
                             ))}
                         </div>
                     )}
                     <div className="d-flex flex-column gspace-2">
-                        <a href="#" className="case-studies-title"><h4>{title}</h4></a>
+                        <Link to="/case_studies" className="case-studies-title"><h4>{title}</h4></Link>
                         <p>{description}</p>
                     </div>
                     {size === "small" && (
                     <div className={`case-studies-component ${size} align-self-end justify-content-end align-items-end`}>
                         {tags.map((tag, index) => (
                             <div key={index} className="cs-component">
-                                <a href="#">{tag}</a>
+                                <Link to="/case_studies">{tag}</Link>
                             </div>
                         ))}
                     </div>

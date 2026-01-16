@@ -7,7 +7,7 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     // Create audio element
-    const audio = new Audio("/assets/audio/ambient.mp3");
+    const audio = new Audio("/assets/audio/algoplus-background.mp3");
     audio.loop = true;
     audio.volume = 0.3;
     audio.preload = 'auto';
@@ -66,7 +66,8 @@ const MusicPlayer = () => {
     };
   }, []);
 
-  const toggleMusic = () => {
+  const toggleMusic = (e) => {
+    e.stopPropagation(); // Prevent event bubbling to document listeners
     const audio = audioRef.current;
     if (!audio) return;
 

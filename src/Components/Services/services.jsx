@@ -19,6 +19,7 @@ function ServiceSection() {
                         icon={item.icon} 
                         title={item.title} 
                         content={item.description} // ✅ Short text for the card
+                        className="h-100"
                     />
                  </div>
              ))}
