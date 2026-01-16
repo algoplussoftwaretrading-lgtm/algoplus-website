@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 // Lazy load components for better performance
 const MusicPlayer = lazy(() => import("./Components/MusicPlayer"));
 const SplashCursor = lazy(() => import("./Components/SplashCursor"));
+const ScrollToTop = lazy(() => import("./Components/ScrollToTop"));
 const AppRouter = lazy(() => import("./Routers"));
 const Navbar = lazy(() => import("./Components/Header/header"));
 const Footer = lazy(() => import("./Components/Footer/footer"));
@@ -24,6 +25,9 @@ function App(){
 
             {/* ✅ NEW: The Floating Music Button */}
             <MusicPlayer />
+
+            {/* ✅ NEW: Scroll to Top Button */}
+            <ScrollToTop />
 
             <Router>
                 <NavProvider>

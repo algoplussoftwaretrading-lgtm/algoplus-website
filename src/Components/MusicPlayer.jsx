@@ -64,7 +64,7 @@ const MusicPlayer = () => {
         audioRef.current = null;
       }
     };
-  }, [isPlaying]);
+  }, []);
 
   const toggleMusic = () => {
     const audio = audioRef.current;
